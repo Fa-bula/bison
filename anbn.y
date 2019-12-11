@@ -15,21 +15,9 @@
 
 /* Grammar rules and actions follow */
 %% 
-    /* input -> input line | e */
-    /* input -- starting symbol */
-    input:    input line |  
-                         { printf ("\n\t This program expecting string as 0^n1^n\n"); }
-    ;
-
-    /* line -> '\n' | exp '\n' */
-    line:    '\n'        { printf ("\t empty line was introduced\n"); } |
-             exp '\n'    { printf ("\t n = %i\n", $1); }
-    ;
- 
-    /* exp -> ZERO exp ONE */
-    exp:    ZERO exp ONE   { $$ = $2 + 1; } |  
-            ZERO ONE       { $$ = 1; }
-    ;
+S: A B {$$ = $1; printf("S->AB\nn = %d\n", $1);};
+B: '\n' {printf("B->eps\n");};
+A: ZERO A ONE {$$ = $2 + 1; printf("A -> 0A1\n");} | ZERO ONE {$$ = 1; printf("A->01\n");};
 %%
 
 
