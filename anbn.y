@@ -15,8 +15,10 @@
 
 /* Grammar rules and actions follow */
 %% 
+ /*  S -> AB */
 S: A B {$$ = $1; printf("S->AB\nn = %d\n", $1);};
 B: '\n' {printf("B->eps\n");};
+/* A -> 0 A 1 */
 A: ZERO A ONE {$$ = $2 + 1; printf("A -> 0A1\n");} | ZERO ONE {$$ = 1; printf("A->01\n");};
 %%
 
